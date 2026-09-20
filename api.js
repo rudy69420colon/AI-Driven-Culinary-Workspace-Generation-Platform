@@ -87,30 +87,39 @@ function extractAndParseJson(rawText) {
     }
 }
 
+// ─── Detect deployment mode ───
+const isVercel = !GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE";
+
 // ─── Gemini API call with retry ───
 async function callGemini(prompt, responseSchema = null, retries = 2) {
-    if (!GEMINI_API_KEY) {
-        throw new Error("Missing Gemini API Key. Please configure it in the HTML setup.");
-    }
-
-    const payload = {
-        contents: [{ parts: [{ text: prompt }] }]
-    };
-
-    if (responseSchema) {
-        payload.generationConfig = {
-            responseMimeType: "application/json",
-            responseSchema: responseSchema
-        };
-    }
-
     for (let attempt = 0; attempt <= retries; attempt++) {
         try {
-            const response = await fetch(GEMINI_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            let response;
+
+            if (isVercel) {
+                // Route through Vercel serverless proxy
+                response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, responseSchema })
+                });
+            } else {
+                // Direct call for local development
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }]
+                };
+                if (responseSchema) {
+                    payload.generationConfig = {
+                        responseMimeType: "application/json",
+                        responseSchema: responseSchema
+                    };
+                }
+                response = await fetch(GEMINI_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
