@@ -1,5 +1,7 @@
 ﻿# AI-Driven Culinary Workspace
 
+**[Live Demo](https://ai-driven-culinary-workspace-genera.vercel.app/)**
+
 An AI-powered recipe discovery and meal planning platform built with vanilla HTML, CSS, and JavaScript.
 
 ## Features
@@ -15,17 +17,25 @@ An AI-powered recipe discovery and meal planning platform built with vanilla HTM
 - **Recipe Data:** [TheMealDB API](https://www.themealdb.com/)
 - **AI Engine:** [Google Gemini API](https://ai.google.dev/) (gemini-2.5-flash-lite)
 - **Fonts:** [Google Fonts - Inter](https://fonts.google.com/specimen/Inter)
+- **Hosting:** [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-1. Clone and serve (ES Modules require HTTP):
-   ```
+1. Clone and serve locally:
+   ```bash
    git clone https://github.com/rudy69420colon/AI-Driven-Culinary-Workspace-Generation-Platform.git
    cd AI-Driven-Culinary-Workspace-Generation-Platform
    npx serve .
    ```
 
 2. Open `http://localhost:3000` in your browser.
+
+3. Add your Gemini API key in `index.html`:
+   ```html
+   window.ENV = {
+       GEMINI_API_KEY: "YOUR_KEY_HERE"
+   };
+   ```
 
 ## Project Structure
 
@@ -35,7 +45,3 @@ style3.css      # Stylesheet (glassmorphism, animations, responsive)
 app.js          # UI logic, event handlers, rendering
 api.js          # API layer (TheMealDB + Gemini AI with caching and retry)
 ```
-
-## Configuration
-
-Replace the Gemini API key in `index.html` with your own from [Google AI Studio](https://aistudio.google.com/apikey).
