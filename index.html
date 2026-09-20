@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Culinary Workspace — Smart Recipe Discovery</title>
+    <meta name="description" content="AI-powered culinary workspace: search recipes, generate meals from fridge ingredients, get ingredient substitutes, and estimate nutrition — all in one place.">
+    <link rel="stylesheet" href="style3.css">
+    <script>
+        window.ENV = {
+            GEMINI_API_KEY: "YOUR_GEMINI_API_KEY_HERE"
+        };
+    </script>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <h1>Smart-and-Assisted Culinary <span class="ai-text">Workspace</span></h1>
+            <p>Discover recipes, cook smarter with AI-powered suggestions</p>
+        </header>
+
+        <div class="mode-container">
+            <div class="mode-switch">
+                <button class="mode-btn active" data-mode="standard">Standard Search 🔍</button>
+                <button class="mode-btn" data-mode="ai">AI Fridge Chef 🍳</button>
+            </div>
+        </div>
+
+        <div class="search-section" id="search-control-panel">
+            <div class="input-group">
+                <input type="text" id="search-input" placeholder="Search for recipes (e.g., chicken, pasta, cake)...">
+                <button class="search-btn" id="trigger-search-btn">Search</button>
+            </div>
+            <div class="recent-searches" id="recent-searches-bar"></div>
+        </div>
+
+        <main class="recipe-grid" id="main-canvas">
+            <!-- Content rendered by JS -->
+        </main>
+
+        <div class="modal-overlay" id="detail-modal-wrapper">
+            <div class="modal-card">
+                <button class="modal-close-btn" id="close-modal-trigger">&times;</button>
+                <div id="modal-hero-slot"></div>
+                <div class="modal-body" id="modal-content-root"></div>
+            </div>
+        </div>
+
+        <div class="toast-container" id="toast-container"></div>
+
+        <footer>
+            <p>Powered by <a href="https://www.themealdb.com/" target="_blank" rel="noopener">TheMealDB</a> &amp; <a href="https://ai.google.dev/" target="_blank" rel="noopener">Gemini AI</a></p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
